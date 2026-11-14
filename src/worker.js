@@ -1,6 +1,6 @@
-// POST /api/subscribe
-// Saves an early-access email in the D1 database bound to this Pages project
-// as `DB`. The table is created on first use, so there is no SQL to run by
+// The site's Worker. Static files in public/ are served by Cloudflare before
+// this runs; this only handles POST /api/subscribe, which saves an
+// early-access email in the D1 database bound as `DB`. The table is created on first use, so there is no SQL to run by
 // hand. Only the email, which form it came from and the time are stored.
 
 const CREATE = `CREATE TABLE IF NOT EXISTS signups (
@@ -19,7 +19,7 @@ function reply(body, status) {
   });
 }
 
-export async function onRequestPost({ request, env }) {
+async function subscribe(request, env) {
   // Only accept posts from this site's own pages.
   const origin = request.headers.get('Origin');
   if (origin && new URL(origin).host !== new URL(request.url).host) {
@@ -66,6 +66,15 @@ export async function onRequestPost({ request, env }) {
   return reply({ ok: true });
 }
 
-export function onRequest() {
-  return reply({ ok: false, error: 'method_not_allowed' }, 405);
-}
+export default {
+  async fetch(request, env) {
+    const url = new URL(request.url);
+    if (url.pathname === '/api/subscribe') {
+      if (request.method !== 'POST') {
+        return reply({ ok: false, error: 'method_not_allowed' }, 405);
+      }
+      return subscribe(request, env);
+    }
+    return env.ASSETS.fetch(request);
+  },
+};
