@@ -1,0 +1,12 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "betlab-landing",
+  "main": "src/worker.js",
+  "compatibility_date": "2026-11-13",
+  "observability": { "enabled": true },
+  // The page itself: everything in public/ is served as static files.
+  "assets": { "directory": "public", "binding": "ASSETS" },
+  // Where signups are saved. No database_id on purpose: Wrangler creates the
+  // database on the first deploy and keeps it linked on later ones.
+  "d1_databases": [{ "binding": "DB", "database_name": "betlab-signups" }]
+}

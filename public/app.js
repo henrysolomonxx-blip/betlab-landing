@@ -1,4 +1,4 @@
-// Email signup. Posts to the Pages Function at /api/subscribe, which saves
+// Email signup. Posts to /api/subscribe (src/worker.js), which saves
 // the address in the D1 database bound as DB.
 (function () {
   var forms = document.querySelectorAll('form.signup');
