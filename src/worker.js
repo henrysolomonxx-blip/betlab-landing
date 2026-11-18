@@ -75,6 +75,16 @@ export default {
       }
       return subscribe(request, env);
     }
-    return env.ASSETS.fetch(request);
+    // Once betlab.us points here, the app lives at app.betlab.us. Send www to
+    // the bare domain, and send old app links (anything that is not a file of
+    // this site) on to the app so shared links keep working.
+    if (url.hostname === 'www.betlab.us') {
+      return Response.redirect('https://betlab.us' + url.pathname + url.search, 301);
+    }
+    const page = await env.ASSETS.fetch(request);
+    if (page.status === 404 && url.hostname === 'betlab.us') {
+      return Response.redirect('https://app.betlab.us' + url.pathname + url.search, 302);
+    }
+    return page;
   },
 };
