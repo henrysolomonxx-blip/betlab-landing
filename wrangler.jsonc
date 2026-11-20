@@ -8,5 +8,12 @@
   "assets": { "directory": "public", "binding": "ASSETS" },
   // Where signups are saved. No database_id on purpose: Wrangler creates the
   // database on the first deploy and keeps it linked on later ones.
-  "d1_databases": [{ "binding": "DB", "database_name": "betlab-signups" }]
+  "d1_databases": [{ "binding": "DB", "database_name": "betlab-signups" }],
+  // The site's own addresses. Cloudflare creates the DNS records and
+  // certificates for these; the workers.dev address keeps working too.
+  "workers_dev": true,
+  "routes": [
+    { "pattern": "betlab.us", "custom_domain": true },
+    { "pattern": "www.betlab.us", "custom_domain": true }
+  ]
 }
