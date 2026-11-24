@@ -47,8 +47,8 @@
   var hint = climb.querySelector('.climb-hint');
   var COLORS = ['217,154,99', '207,212,220', '245,181,58', '169,224,238', '142,197,255', '157,255,77', '255,122,138', '255,213,74'];
   var LAST = badges.length - 1;
-  var HOLD = 0.42;        // share of each tier spent holding still before the next one grows through
-  var TAIL = 0.7;         // extra hold on the final tier
+  var HOLD = 0.3;        // share of each tier spent holding still before the next one grows through
+  var TAIL = 0.5;         // extra hold on the final tier
   var G = 'radial-gradient(circle farthest-side at 50% 50%, ';
 
   function mask(el, value) { el.style.webkitMaskImage = value; el.style.maskImage = value; }

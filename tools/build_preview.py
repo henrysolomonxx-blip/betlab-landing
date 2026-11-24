@@ -58,6 +58,7 @@ climb = '''<section id="tiers" class="band climb" aria-label="The eight tiers, B
       </div>
     </div>
     <div class="climb-hint" aria-hidden="true">Scroll to climb</div>
+    <a class="climb-skip" href="#how">Skip</a>
   </div>
   <div class="climb-static">
   %s
