@@ -1,0 +1,77 @@
+/* Cinematic layer. Everything here is scoped to html.cine, which cinema.js
+   adds only when scripting works and the visitor has not asked for reduced
+   motion. Without it the page is the plain static version. */
+
+.climb-pin { display: none; }
+
+html.cine body { overflow-x: clip; }
+html.cine body::after {
+  content: ''; position: fixed; inset: 0; z-index: 60; pointer-events: none; opacity: 0.07;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.9 0'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* Header stays on screen so the signup button is always one tap away. */
+html.cine .top-bar { position: sticky; top: 0; z-index: 50; background: rgba(0, 0, 0, 0.82); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); border-bottom: 1px solid transparent; transition: border-color 0.3s; }
+html.cine .top-bar.scrolled { border-bottom-color: var(--line); }
+html.cine .top { padding-top: 14px; padding-bottom: 14px; }
+
+/* Opening: the page arrives piece by piece. */
+@keyframes rise { from { opacity: 0; transform: translateY(28px); } to { opacity: 1; transform: none; } }
+@keyframes fade { from { opacity: 0; } to { opacity: 1; } }
+@keyframes badge-in { from { opacity: 0; transform: scale(0.86); filter: blur(12px); } to { opacity: 1; transform: none; filter: none; } }
+html.cine .top-bar { animation: fade 0.8s 0.1s both; }
+html.cine .hero .eyebrow { animation: rise 0.7s 0.25s both; }
+html.cine .hero h1 { animation: rise 0.9s 0.4s both cubic-bezier(0.2, 0.7, 0.2, 1); }
+html.cine .hero .lede { animation: rise 0.8s 0.75s both; }
+html.cine .hero .signup, html.cine .hero .signup-done { animation: rise 0.8s 0.95s both; }
+html.cine .hero .fine { animation: fade 0.8s 1.2s both; }
+html.cine .hero .phone { animation: rise 1s 0.7s both cubic-bezier(0.2, 0.7, 0.2, 1); }
+html.cine .hero-badge { animation: badge-in 1.4s 1s both; }
+html.cine .hero .caption { animation: fade 0.8s 2.4s both; }
+html.cine .rows li { animation: rise 0.5s both; animation-delay: calc(1.3s + var(--i, 0) * 0.09s); }
+html.cine .you { animation: rise 0.6s 2.05s both; }
+
+/* Reveal on scroll. */
+html.cine .rv { opacity: 0; transform: translateY(26px); transition: opacity 0.8s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1); transition-delay: calc(var(--d, 0) * 0.09s); }
+html.cine .rv.in { opacity: 1; transform: none; }
+
+/* Feature demos play when they come into view. */
+html.cine .card .hexgrade { opacity: 0; transform: scale(1.9) rotate(-12deg); }
+html.cine .card.in .hexgrade { opacity: 1; transform: none; transition: opacity 0.25s 0.9s, transform 0.45s 0.9s cubic-bezier(0.3, 1.5, 0.5, 1); }
+html.cine .card .kv div, html.cine .card .legs li, html.cine .card .lands { opacity: 0; transform: translateX(-10px); }
+html.cine .card.in .kv div, html.cine .card.in .legs li, html.cine .card.in .lands { opacity: 1; transform: none; transition: opacity 0.4s, transform 0.4s; transition-delay: calc(0.35s + var(--n, 0) * 0.28s); }
+@keyframes live-pulse { 50% { opacity: 0.35; } }
+html.cine .card.in .legs .live em, html.cine .card.in .legs .live svg { animation: live-pulse 1.4s 1.6s infinite; }
+html.cine .cardshare img { opacity: 0; transform: scale(0.8); }
+html.cine .card.in .cardshare img { opacity: 1; transform: none; transition: opacity 0.6s 0.4s, transform 0.9s 0.4s cubic-bezier(0.2, 0.7, 0.2, 1); }
+
+/* The climb: one pinned scene; scrolling evolves the badge tier by tier. */
+html.cine .climb { height: 700vh; padding: 0; }
+html.cine .climb-static { display: none; }
+html.cine .climb-pin { display: flex; position: sticky; top: 0; height: 100vh; height: 100svh; align-items: center; overflow: hidden; }
+.climb-pin::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 68% 50%, rgba(var(--glow, 217, 154, 99), 0.16), transparent 58%); transition: background 0.6s; }
+.climb-pin::after { content: ''; position: absolute; inset: 0; pointer-events: none; background: radial-gradient(ellipse at center, transparent 55%, rgba(0, 0, 0, 0.75) 100%); }
+.climb-grid { position: relative; width: 100%; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 40px; align-items: center; }
+.climb-copy { display: flex; flex-direction: column; gap: 22px; }
+.climb-lines { position: relative; align-self: stretch; height: 250px; }
+.climb-line { position: absolute; inset: 0; display: flex; flex-direction: column; gap: 14px; opacity: 0; will-change: opacity, transform; }
+.climb-tier { font-size: clamp(72px, 10vw, 148px); line-height: 0.86; letter-spacing: 0.02em; }
+.climb-line p { max-width: 440px; font-size: 22px; color: var(--soft); }
+.climb-rail { list-style: none; margin: 0; padding: 0; display: flex; gap: 8px; }
+.climb-rail li { width: 34px; height: 5px; background: #26262b; transition: background 0.3s; }
+.climb-stage { position: relative; width: min(520px, 100%); aspect-ratio: 1; justify-self: center; -webkit-mask-image: radial-gradient(circle farthest-side at 50% 50%, #000 90%, transparent 100%); mask-image: radial-gradient(circle farthest-side at 50% 50%, #000 90%, transparent 100%); }
+.climb-stage img, .climb-edge { position: absolute; inset: 0; width: 100%; height: 100%; }
+.climb-stage img { object-fit: contain; mix-blend-mode: screen; opacity: 0; will-change: opacity, transform; }
+.climb-edge { opacity: 0; pointer-events: none; mix-blend-mode: screen; }
+.climb-hint { position: absolute; z-index: 1; left: 0; right: 0; bottom: 22px; text-align: center; font-family: var(--head); font-weight: 600; font-size: 14px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); transition: opacity 0.4s; }
+
+@media (max-width: 760px) {
+  html.cine .climb { height: 620vh; }
+  .climb-grid { grid-template-columns: minmax(0, 1fr); gap: 8px; }
+  .climb-stage { order: -1; width: min(300px, 74vw); }
+  .climb-lines { height: 190px; }
+  .climb-tier { font-size: 68px; }
+  .climb-line p { font-size: 18px; }
+  .climb-copy { gap: 14px; }
+  .climb-rail li { width: 26px; }
+}
