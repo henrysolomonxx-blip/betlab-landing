@@ -25,6 +25,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Barlow:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap">
 <link rel="stylesheet" href="/styles.css">
+<link rel="stylesheet" href="/cinema.css">
 </head>
 <body>
 
@@ -54,6 +55,7 @@
   </symbol>
 </svg>
 
+<div class="top-bar">
 <header class="wrap top">
   <a class="brand" href="/" aria-label="BetLab home">
     <svg aria-hidden="true"><use href="#logo"/></svg>
@@ -67,6 +69,7 @@
     <a class="btn" href="#join">Get early access</a>
   </nav>
 </header>
+</div>
 
 <main>
 <section class="wrap hero">
@@ -113,7 +116,39 @@
   </div>
 </section>
 
-<section id="tiers" class="band">
+<section id="tiers" class="band climb" aria-label="The eight tiers, Bronze to GOAT">
+  <div class="climb-pin">
+    <div class="wrap climb-grid">
+      <div class="climb-copy">
+        <div class="eyebrow">The climb</div>
+        <div class="climb-lines">
+          <div class="climb-line"><h2 class="climb-tier t-bronze">Bronze</h2><p>Everyone starts here.</p></div>
+          <div class="climb-line"><h2 class="climb-tier t-silver">Silver</h2><p>Wins pay by the odds. A loss costs half.</p></div>
+          <div class="climb-line"><h2 class="climb-tier t-gold">Gold</h2><p>The top of the free climb. From here, every loss costs full.</p></div>
+          <div class="climb-line"><h2 class="climb-tier t-platinum">Platinum</h2><p>Verified only. Earned with real bets from your sportsbook.</p></div>
+          <div class="climb-line"><h2 class="climb-tier t-diamond">Diamond</h2><p>Fewer players at every step.</p></div>
+          <div class="climb-line"><h2 class="climb-tier t-sharp">Sharp</h2><p>The highest a unicorn parlay can carry you.</p></div>
+          <div class="climb-line"><h2 class="climb-tier t-legend">Legend</h2><p>Stop playing and it fades. This one has to be defended.</p></div>
+          <div class="climb-line"><h2 class="climb-tier t-goat">GOAT</h2><p>Ten players. That's it.</p></div>
+        </div>
+        <ol class="climb-rail" aria-hidden="true"><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li></ol>
+      </div>
+      <div class="climb-stage">
+        <img src="/badges/bronze.webp" alt="Bronze rank badge" width="512" height="512">
+        <img src="/badges/silver.webp" alt="Silver rank badge" width="512" height="512">
+        <img src="/badges/gold.webp" alt="Gold rank badge" width="512" height="512">
+        <img src="/badges/platinum.webp" alt="Platinum rank badge" width="512" height="512">
+        <img src="/badges/diamond.webp" alt="Diamond rank badge" width="512" height="512">
+        <img src="/badges/sharp.webp" alt="Sharp rank badge" width="512" height="512">
+        <img src="/badges/legend.webp" alt="Legend rank badge" width="512" height="512">
+        <img src="/badges/goat.webp" alt="GOAT rank badge" width="512" height="512">
+        <div class="climb-edge"></div>
+      </div>
+    </div>
+    <div class="climb-hint" aria-hidden="true">Scroll to climb</div>
+    <a class="climb-skip" href="#how">Skip</a>
+  </div>
+  <div class="climb-static">
   <div class="wrap section">
     <div class="head">
       <div class="eyebrow">Eight tiers</div>
@@ -133,6 +168,8 @@
       <p><strong>Bronze to Gold is the climb.</strong> Free for everyone with Pick'em. Wins pay by the odds, a loss costs half, and a tier you earn is yours for the season.</p>
       <p><strong>Platinum and up is pure skill.</strong> Those tiers are earned only on the Verified ladder, with bets synced from your sportsbook.</p>
     </div>
+  </div>
+
   </div>
 </section>
 
@@ -291,5 +328,6 @@
 </footer>
 
 <script src="/app.js" defer></script>
+<script src="/cinema.js" defer></script>
 </body>
 </html>
